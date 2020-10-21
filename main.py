@@ -5,6 +5,7 @@ import os
 import random
 import datetime
 import re
+import pymongo
 
 app = Flask(__name__)
 
@@ -37,6 +38,14 @@ color_codes = {
 }
 
 key = os.getenv('key')
+mongo = os.getenv('mongo')
+
+client = pymongo.MongoClient(f"mongodb+srv://dbUser:{mongo}@cluster0.at4iw.mongodb.net/<dbname>?retryWrites=true&w=majority")
+
+c = client.data.users
+
+
+
 
 def convert_color_codes_to_html(code, symbol, include_raw=False):
     current_color = None
@@ -94,6 +103,8 @@ def proxy():
     if request.method == "POST":
         data = request.form
         return redirect(f'/stats/{data["ign"]}', 302)
+    if request.method == "GET":
+      return redirect('/', 302)
 
 
 @app.route('/stats/<user>', methods=["GET", "POST"])
@@ -104,14 +115,18 @@ def stats(user):
         data2 = requests.get(
             f'https://api.hypixel.net/player?name={user}&key={key}').json()
         friends = fCount(user, data['uuid'])
+        if not c.find_one({"username":user}):
+          c.insert_one({
+            "username": user
+          })
         return render_template('stats.html', data=data, data2=data2, friends=friends)
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('error.html', errorCode=404), 404
+    return render_template('error.html', errorCode=404, err="Page Not Found"), 404
 
 @app.errorhandler(500)
 def page_not_found(e):
-    return render_template('error.html', errorCode=500), 500
+    return render_template('error.html', errorCode=500, err="API Ratelimit / Incorrect Username"), 500
 
 app.run(host='0.0.0.0', port=8080)
