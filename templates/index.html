@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html class="home-body">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>SushiStats - Elegant Hypixel Stats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="SushiStats - Elegant Hypixel Stats">
+    <meta property="og:image" content="https://cdn.sushipython.us/content/images/logos/logo.jpg">
+    <meta property="og:description" content="Get stats for hypixel players, displayed in an elegant and easy to read format!">
+    <link rel="shortcut icon" href="https://cdn.sushipython.us/content/images/logos/logo.jpg" type="image/jpg">
+  </head>
+  <body>
+    <div class="panel bg-blur">
+      <span class="jumbo">Sushi</span>
+      <span class="jumbo">Stats</span>
+    </div>
+    <div class="panel top-margin bg-blur top-panel">
+      <h1>Enter Username</h1>
+      <form action="/proxy" method="post">
+        <input class="home-text" type="text" name="ign" placeholder="Username"><br><br>
+        <input class="home-submit" value="Look Up" type="submit">
+      </form>
+    </div>
+  </body>
+</html>
+<style>
+.locked {
+  position: fixed;
+}
+
+* {
+  text-align: center;
+}
+
+.l {
+  float: left;
+}
+
+.r {
+  float: right;
+}
+
+.top {
+  margin-top: 85px;
+  padding-bottom: 25px;
+}
+
+.bottom {
+  margin-bottom: 10px;
+}
+.home-body {
+  background-image: url("https://sushistats-html.sushipython.repl.co/pic2.png");
+  font-family: 'Lato', sans-serif;
+  background-size: cover;
+}
+
+.panel {
+  border-radius: 7px;
+  box-sizing: border-box;
+  box-shadow:
+    0 0px 10.4px rgba(0, 0, 0, 0.067),
+    0 0px 25px rgba(0, 0, 0, 0.097),
+    0 0px 47.1px rgba(0, 0, 0, 0.12),
+    0 0px 84px rgba(0, 0, 0, 0.143),
+    0 0px 157.1px rgba(0, 0, 0, 0.173),
+    0 0px 376px rgba(0, 0, 0, 0.24)
+  ;
+  color: white;
+  padding: 10px;
+  width: 99%;
+	background-color: rgba(5,5,5,.2);
+	display: block;
+}
+
+.p28 {
+  border-radius: 7px;
+  box-sizing: border-box;
+  box-shadow:
+    0 0px 10.4px rgba(0, 0, 0, 0.067),
+    0 0px 25px rgba(0, 0, 0, 0.097),
+    0 0px 47.1px rgba(0, 0, 0, 0.12),
+    0 0px 84px rgba(0, 0, 0, 0.143),
+    0 0px 157.1px rgba(0, 0, 0, 0.173),
+    0 0px 376px rgba(0, 0, 0, 0.24)
+  ;
+  color: white;
+  padding: 10px;
+  width: 28%;
+  height: 530px;
+	background-color: rgba(5,5,5,.2);
+	display: block;
+  float: right;
+  margin-right: 20px;
+}
+
+#skinRender {
+  height: calc(100% - 6em);
+}
+
+.p70 {
+  border-radius: 7px;
+  box-sizing: border-box;
+  box-shadow:
+    0 0px 10.4px rgba(0, 0, 0, 0.067),
+    0 0px 25px rgba(0, 0, 0, 0.097),
+    0 0px 47.1px rgba(0, 0, 0, 0.12),
+    0 0px 84px rgba(0, 0, 0, 0.143),
+    0 0px 157.1px rgba(0, 0, 0, 0.173),
+    0 0px 376px rgba(0, 0, 0, 0.24)
+  ;
+  color: white;
+  padding: 10px;
+  width: 70%;
+	background-color: rgba(5,5,5,.2);
+	display: block;
+}
+
+.bg-blur {
+  background: url("https://sushistats-html.sushipython.repl.co/pic-blur2.jpg") no-repeat top center fixed;
+  background-size: cover;
+}
+
+.top-margin {
+  margin-top: 25px;
+  padding-bottom: 25px
+}
+
+.normal-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.jumbo {
+  font-size: 90px;
+}
+
+.large {
+  font-size: 50px;
+}
+.home-text {
+  background-color: rgba(255, 255, 255, .1);
+  color: white;
+  width: 30%;
+  height:50px;
+  font-size: 18px;
+  border-color: rgba(255, 255, 255, .5);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.tiny-button {
+  background-color: rgba(255, 255, 255, .3);
+  border: none;
+  color: white;
+  width: 5%;
+  height:50px;
+  font-size: 18px;
+  border-color: rgba(255, 255, 255, .5);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  box-sizing: bordas long ier-box;
+  cursor: pointer;
+}
+
+.home-submit {
+  background-color: rgba(255, 255, 255, .3);
+  border: none;
+  color: white;
+  width: 30%;
+  height:40px;
+  font-size: 18px;
+  border-color: rgba(255, 255, 255, .5);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+
+
+input[type="submit"]:hover {
+  background-color: rgba(255, 255, 255, .6);
+  transition: background-color 1s;
+}
+
+.small {
+  font-size: 24px;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.cf {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  padding: 2px 6px 2px 6px;
+  text-align: center;
+  color: white;
+}
+</style>
