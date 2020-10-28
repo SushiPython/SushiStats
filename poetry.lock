@@ -8,6 +8,21 @@ version = "7.1.2"
 
 [[package]]
 category = "main"
+description = "DNS toolkit"
+name = "dnspython"
+optional = false
+python-versions = ">=3.6"
+version = "2.0.0"
+
+[package.extras]
+curio = ["curio (>=1.2)", "sniffio (>=1.1)"]
+dnssec = ["cryptography (>=2.6)"]
+doh = ["requests", "requests-toolbelt"]
+idna = ["idna (>=2.1)"]
+trio = ["trio (>=0.14.0)", "sniffio (>=1.1)"]
+
+[[package]]
+category = "main"
 description = "A simple framework for building complex web applications."
 name = "flask"
 optional = false
@@ -86,13 +101,17 @@ dev = ["pytest", "pytest-timeout", "coverage", "tox", "sphinx", "pallets-sphinx-
 watchdog = ["watchdog"]
 
 [metadata]
-content-hash = "1ad5abd6f3ae095bf7406eeb199a68497cbef50d2675c4284ec55806256659ff"
+content-hash = "d2ec74fb6d9c63fd7a515915d52aa3b8283dc867cc725efee2472a1f9fb5ea49"
 python-versions = "^3.8"
 
 [metadata.files]
 click = [
     {file = "click-7.1.2-py2.py3-none-any.whl", hash = "sha256:dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc"},
     {file = "click-7.1.2.tar.gz", hash = "sha256:d2b5255c7c6349bc1bd1e59e08cd12acbbd63ce649f2588755783aa94dfb6b1a"},
+]
+dnspython = [
+    {file = "dnspython-2.0.0-py3-none-any.whl", hash = "sha256:40bb3c24b9d4ec12500f0124288a65df232a3aa749bb0c39734b782873a2544d"},
+    {file = "dnspython-2.0.0.zip", hash = "sha256:044af09374469c3a39eeea1a146e8cac27daec951f1f1f157b1962fc7cb9d1b7"},
 ]
 flask = [
     {file = "Flask-1.1.2-py2.py3-none-any.whl", hash = "sha256:8a4fdd8936eba2512e9c85df320a37e694c93945b33ef33c89946a340a238557"},

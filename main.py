@@ -82,6 +82,11 @@ def fCount(user, uuid):
   if user not in friend_counts:
     friends = requests.get(f'https://api.hypixel.net/friends?key={key}&uuid={uuid}').json()
     friend_counts[user] = len(friends['records'])
+    if not c.find_one({"username":user}):
+      c.insert_one({
+        "username": user,
+        "uuid": uuid
+      })
   return friend_counts[user]
 
 app.jinja_env.globals[
@@ -115,10 +120,6 @@ def stats(user):
         data2 = requests.get(
             f'https://api.hypixel.net/player?name={user}&key={key}').json()
         friends = fCount(user, data['uuid'])
-        if not c.find_one({"username":user}):
-          c.insert_one({
-            "username": user
-          })
         return render_template('stats.html', data=data, data2=data2, friends=friends)
 
 @app.errorhandler(404)
