@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html class="home-body">
+<html class="home-body" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>SushiStats - Elegant Hypixel Stats</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
     <meta property="og:type" content="website">
     <meta property="og:title" content="SushiStats - Elegant Hypixel Stats">
     <meta property="og:image" content="https://cdn.sushipython.us/content/images/logos/logo.jpg">
     <meta property="og:description" content="Get stats for hypixel players, displayed in an elegant and easy to read format! 🍣">
+    <meta name="description" content="Get stats for hypixel players, displayed in an elegant and easy to read format!">
     <link rel="shortcut icon" href="https://cdn.sushipython.us/content/images/logos/logo.jpg" type="image/jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
   </head>
   <body>
     <div class="panel bg-blur">
@@ -20,8 +21,8 @@
     <div class="panel top-margin bg-blur top-panel">
       <h1>Enter Username</h1>
       <form action="/proxy" method="post">
-        <input class="home-text" type="text" name="ign" placeholder="Username"><br><br>
-        <input class="home-submit" value="Look Up" type="submit">
+        <input class="home-text" aria-label="Username" type="text" name="ign" placeholder="Username"><br><br>
+        <input class="home-submit" aria-label="Look Up" value="Look Up" type="submit">
       </form>
     </div>
   </body>
@@ -52,7 +53,7 @@
   margin-bottom: 10px;
 }
 .home-body {
-  background-image: url("https://sushistats-html.sushipython.repl.co/pic2.png");
+  background-image: url("https://cdn.sushipython.us/content/images/sushistats/ezgif-7-3d740f66c46a.webp");
   font-family: 'Lato', sans-serif;
   background-size: cover;
 }
@@ -119,7 +120,7 @@
 }
 
 .bg-blur {
-  background: url("https://sushistats-html.sushipython.repl.co/pic-blur2.jpg") no-repeat top center fixed;
+  background: url("https://cdn.sushipython.us/content/images/sushistats/ezgif-7-9696666ea4a2.webp") no-repeat top center fixed;
   background-size: cover;
 }
 
