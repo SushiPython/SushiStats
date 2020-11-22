@@ -94,7 +94,11 @@ app.jinja_env.globals[
 app.jinja_env.globals['round'] = round
 app.jinja_env.globals['datetime'] = datetime
 app.jinja_env.globals['int'] = int
-app.jinja_env.filters['su'] = lambda n: re.sub('&.', '', n)
+def su(n):
+  print(n)
+  print(type(n))
+  return re.sub('&.', '', n)
+app.jinja_env.filters['su'] = su
 app.jinja_env.filters['nu'] = lambda n: '{:,}'.format(n) if n else "0"
 app.jinja_env.filters['fr'] = lambda n: datetime.datetime.fromtimestamp((n-(n%1000))/1000).strftime("%x %X")
 
@@ -115,12 +119,12 @@ def proxy():
 @app.route('/stats/<user>', methods=["GET", "POST"])
 def stats(user):
     if request.method == "GET":
-        data = requests.get(
-            f'https://api.slothpixel.me/api/players/{user}?key={key}').json()
+        uuid = requests.get("https://api.ashcon.app/mojang/v2/user/" + user).json()
+        data = requests.get(f'https://api.slothpixel.me/api/players/' + uuid['uuid'] + '?key={key}').json()
         data2 = requests.get(
             f'https://api.hypixel.net/player?name={user}&key={key}').json()
-        friends = fCount(user, data['uuid'])
-        return render_template('stats.html', data=data, data2=data2, friends=friends)
+        print(data)
+        return render_template('stats.html', data=data, data2=data2)
 
 @app.errorhandler(404)
 def page_not_found(e):
