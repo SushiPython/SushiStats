@@ -28,7 +28,7 @@
 BedWars: {{(data.stats.BedWars.coins|nu)}}
 SkyWars: {{data.stats.SkyWars.coins|nu}}
 UHC: {{data.stats.UHC.coins|nu}}
-Duels: {{data.stats.Duels.coins|nu}}
+Duels: {{data.stats.Duels.general.coins|nu}}
 Arcade: {{data.stats.Arcade.coins|nu}}">
 </head>
 
@@ -62,7 +62,7 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
           <span><b>Bedwars Coins</b> {{(data.stats.BedWars.coins|nu)}}</span><br>
           <span><b>Arcade Coins</b> {{data.stats.Arcade.coins|nu}}</span><br>
           <span><b>Skywars Coins</b> {{data.stats.SkyWars.coins|nu}}</span><br>
-          <span><b>Duels Coins</b> {{data.stats.Duels.coins|nu}}</span><br>
+          <span><b>Duels Coins</b> {{data.stats.Duels.general.coins|nu}}</span><br>
           <span><b>UHC Coins</b> {{data.stats.UHC.coins|nu}}</span><br>
         </div>
         <div>
@@ -112,24 +112,24 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
     <h1>Skywars</h1>
     <div class="flex small">
       <div>
-        <span><b>Souls Gathered</b> {{data2.player.stats.SkyWars.souls_gathered|nu}}</span><br>
-        <span><b>Blocks Placed</b> {{data2.player.stats.SkyWars.blocks_placed|nu}}</span><br>
-        <span><b>Eggs Thrown</b> {{data2.player.stats.SkyWars.egg_thrown|nu}}</span><br>
-        <span><b>EPearls Thrown</b> {{data2.player.stats.SkyWars.enderpearls_thrown|nu}}</span><br>
+        <span><b>Souls Gathered</b> {{data.stats.SkyWars.souls_gathered|nu}}</span><br>
+        <span><b>Blocks Placed</b> {{data.stats.SkyWars.blocks_placed|nu}}</span><br>
+        <span><b>Eggs Thrown</b> {{data.stats.SkyWars.egg_thrown|nu}}</span><br>
+        <span><b>EPearls Thrown</b> {{data.stats.SkyWars.enderpearls_thrown|nu}}</span><br>
       </div>
       <div>
-        <span><b>Coins</b> {{data2.player.stats.SkyWars.coins|nu}}</span><br>
-        <span><b>Winstreak</b> {{data2.player.stats.SkyWars.win_streak|nu}}</span><br>
-        <span><b>Wins</b> {{data2.player.stats.SkyWars.wins|nu}}</span><br>
-        <span><b>Level</b> {{data2.player.stats.SkyWars.levelFormatted[2:]}}</span><br>
-        <span><b>Losses</b> {{data2.player.stats.SkyWars.losses|nu}}</span><br>
+        <span><b>Coins</b> {{data.stats.SkyWars.coins|nu}}</span><br>
+        <span><b>Winstreak</b> {{data.stats.SkyWars.win_streak|nu}}</span><br>
+        <span><b>Wins</b> {{data.stats.SkyWars.wins|nu}}</span><br>
+        <span><b>Level</b> {{round(data.stats.SkyWars.level)}}</span><br>
+        <span><b>Losses</b> {{data.stats.SkyWars.losses|nu}}</span><br>
       </div>
       <div>
-        <span><b>Overall Kills</b> {{data2.player.stats.SkyWars.kills|nu}}</span><br>
-        <span><b>Overall Assists</b> {{data2.player.stats.SkyWars.assists|nu}}</span><br>
-        <span><b>Win Loss Ratio</b> {% if data2.player.stats.SkyWars.wins and data2.player.stats.SkyWars.losses+0.0000000001 %}{{round(data2.player.stats.SkyWars.wins/data2.player.stats.SkyWars.losses, 2)}}{% else %}N/A{% endif %}</span><br>
-        <span><b>Quits</b> {{data2.player.stats.SkyWars.quits|nu}}</span><br>
-        <span><b>Souls</b> {{data2.player.stats.SkyWars.souls|nu}}</span><br>
+        <span><b>Overall Kills</b> {{data.stats.SkyWars.kills|nu}}</span><br>
+        <span><b>Overall Assists</b> {{data.stats.SkyWars.assists|nu}}</span><br>
+        <span><b>Win Loss Ratio</b> {% if data.stats.SkyWars.wins and data.stats.SkyWars.losses+0.0000000001 %}{{round(data.stats.SkyWars.wins/data.stats.SkyWars.losses, 2)}}{% else %}N/A{% endif %}</span><br>
+        <span><b>Quits</b> {{data.stats.SkyWars.quits|nu}}</span><br>
+        <span><b>Souls</b> {{data.stats.SkyWars.souls|nu}}</span><br>
       </div>
     </div>
   </div>
@@ -137,23 +137,23 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
     <h1>Duels</h1>
       <div class="flex small">
         <div>
-          <span><b>Melee Swings</b> {{data2.player.stats.Duels.melee_swings|nu}}</span><br>
-          <span><b>Melee Hits</b> {{data2.player.stats.Duels.melee_hits|nu}}</span><br>
-          <span><b>Health Regenerated</b> {{data2.player.stats.Duels.health_regenerated|nu}}</span><br>
-          <span><b>Rounds Played</b> {{data2.player.stats.Duels.rounds_played|nu}}</span><br>
+          <span><b>Melee Swings</b> {{data.stats.Duels.general.melee_swings|nu}}</span><br>
+          <span><b>Melee Hits</b> {{data.stats.Duels.general.melee_hits|nu}}</span><br>
+          <span><b>Health Regenerated</b> {{data.stats.Duels.general.health_regenerated|nu}}</span><br>
+          <span><b>Rounds Played</b> {{data.stats.Duels.general.rounds_played|nu}}</span><br>
         </div>
         <div>
-          <span><b>Coins</b> {{data.stats.Duels.coins|nu}}</span><br>
-          <span><b>Wins</b> {{data.stats.Duels.wins|nu}}</span><br>
-          <span><b>Winstreak</b> {{data.stats.Duels.current_winstreak|nu}}0</span><br>
-          <span><b>Level</b> {{data.stats.Duels.wins|nu}}</span><br>
-          <span><b>Losses</b> {{data.stats.Duels.losses|nu}}</span><br>
+          <span><b>Coins</b> {{data.stats.Duels.general.coins|nu}}</span><br>
+          <span><b>Wins</b> {{data.stats.Duels.general.wins|nu}}</span><br>
+          <span><b>Winstreak</b> {{data.stats.Duels.general.current_winstreak|nu}}</span><br>
+          <span><b>Level</b> {{data.stats.Duels.general.wins|nu}}</span><br>
+          <span><b>Losses</b> {{data.stats.Duels.general.losses|nu}}</span><br>
         </div>
         <div>
-          <span><b>Total Kills</b> {{data.stats.Duels.kills|nu}}</span><br>
-          <span><b>Total Deaths</b> {{data.stats.Duels.deaths|nu}}</span><br>
-          <span><b>Overall KDR</b> {% if data.stats.Duels.kills and data.stats.Duels.deaths %}{{round(data.stats.Duels.kills/data.stats.Duels.deaths+0.0000000001, 2)}}{% else %}N/A{% endif %}</span><br>
-          <span><b>Total Win Loss Ratio</b> {% if data.stats.Duels.wins and data.stats.Duels.losses %}{{round(data.stats.Duels.wins/data.stats.Duels.losses+0.0000000001, 2)}}{% else %}N/A{% endif %}</span><br>
+          <span><b>Total Kills</b> {{data.stats.Duels.general.kills|nu}}</span><br>
+          <span><b>Total Deaths</b> {{data.stats.Duels.general.deaths|nu}}</span><br>
+          <span><b>Overall KDR</b> {% if data.stats.Duels.general.kills and data.stats.Duels.general.deaths %}{{round(data.stats.Duels.general.kills/data.stats.Duels.general.deaths+0.0000000001, 2)}}{% else %}N/A{% endif %}</span><br>
+          <span><b>Total Win Loss Ratio</b> {% if data.stats.Duels.general.wins and data.stats.Duels.general.losses %}{{round(data.stats.Duels.general.wins/data.stats.Duels.general.losses+0.0000000001, 2)}}{% else %}N/A{% endif %}</span><br>
         </div>
       </div>
     </div>
@@ -161,10 +161,10 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
     <h1>UHC</h1>
       <div class="flex small">
         <div>
-          <span><b>Heads Eaten</b> {{data2.player.stats.UHC.heads_eaten|nu}}</span><br>
-          <span><b>Ultimates Crafted</b> {{data2.player.stats.UHC.ultimates_crafted|nu}}</span><br>
-          <span><b>Solo Wins</b> {{data2.player.stats.UHC.wins_solo|nu}}</span><br>
-          <span><b>Solo Kills</b> {{data2.player.stats.UHC.kills_solo|nu}}</span><br>
+          <span><b>Heads Eaten</b> {{data.stats.UHC.heads_eaten|nu}}</span><br>
+          <span><b>Ultimates Crafted</b> {{data.stats.UHC.ultimates_crafted|nu}}</span><br>
+          <span><b>Solo Wins</b> {{data.stats.UHC.wins_solo|nu}}</span><br>
+          <span><b>Solo Kills</b> {{data.stats.UHC.kills_solo|nu}}</span><br>
         </div>
         <div>
           <span><b>Coins</b> {{data.stats.UHC.coins|nu}}</span><br>

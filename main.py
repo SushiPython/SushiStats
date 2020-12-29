@@ -79,15 +79,12 @@ def convert_color_codes_to_html(code, symbol, include_raw=False):
     return output
 
 def fCount(user, uuid):
-  if user not in friend_counts:
-    friends = requests.get(f'https://api.hypixel.net/friends?key={key}&uuid={uuid}').json()
-    friend_counts[user] = len(friends['records'])
-    if not c.find_one({"username":user}):
-      c.insert_one({
-        "username": user,
-        "uuid": uuid
-      })
-  return friend_counts[user]
+  if not c.find_one({"username":user}):
+    c.insert_one({
+      "username": user,
+      "uuid": uuid
+    })
+  return
 
 app.jinja_env.globals[
     'convert_color_codes_to_html'] = convert_color_codes_to_html
@@ -119,12 +116,10 @@ def proxy():
 @app.route('/stats/<user>', methods=["GET", "POST"])
 def stats(user):
     if request.method == "GET":
-        uuid = requests.get("https://api.ashcon.app/mojang/v2/user/" + user).json()
-        data = requests.get(f'https://api.slothpixel.me/api/players/' + uuid['uuid'] + '?key={key}').json()
-        data2 = requests.get(
-            f'https://api.hypixel.net/player?name={user}&key={key}').json()
-        print(data)
-        return render_template('stats.html', data=data, data2=data2)
+      uuid = requests.get("https://api.ashcon.app/mojang/v2/user/" + user).json()
+      data = requests.get(f'https://api.slothpixel.me/api/players/{user}?key={key}').json()
+      fCount(user, uuid)
+      return render_template('stats.html', data=data)
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -132,6 +127,6 @@ def page_not_found(e):
 
 @app.errorhandler(500)
 def page_not_found(e):
-    return render_template('error.html', errorCode=500, err="API Ratelimit / Incorrect Username"), 500
+    return render_template('error.html', errorCode=500, err=""), 500
 
 app.run(host='0.0.0.0', port=8080)
