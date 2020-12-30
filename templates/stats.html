@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>{{data.username}} - Hypixel Stats - SushiStats</title>
+	<title>{{user}} - Hypixel Stats - SushiStats</title>
   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	 crossorigin="anonymous"></script>
@@ -14,11 +14,11 @@
   <link rel="shortcut icon" href="https://cdn.sushipython.us/content/images/logos/logo.jpg" type="image/jpg">
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="{{data.username}}">
-    <meta property="og:image" content="http://cravatar.eu/helmhead/{{data.username}}/256.png">
+    <meta property="og:title" content="{{user}}">
+    <meta property="og:image" content="http://cravatar.eu/helmhead/{{user}}/256.png">
     <meta property="og:description" content="Quick Stats:
 
-🥇 Rank: {{(data.rank_formatted)|su}}
+🥇 Rank: {{(data.rank_formatted or '')|su}}
 🎚️ Level: {{data.level}}
 🗡️ Karma: {{data.karma|nu}}
 🏆 Achievement Points: {{data.achievement_points|nu}}
@@ -36,22 +36,22 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
   <header class="panel bg-blur locked">
     <h1 id="logo">SushiStats</h1>
     <form method="post" action="/proxy">
-      <input class="home-text" name="ign" type="text" placeholder="Username" value="{{data['username']}}">
+      <input class="home-text" name="ign" type="text" placeholder="Username" value="{{user}}">
       <button class="tiny-button" type="submit">Go</buttton>
     </form>
     </header><br><br><br><br>
   <div class="panel bg-blur top-margin bottom">
-    <h1 class="large">{{convert_color_codes_to_html(data['rank_formatted'], "&") | safe}} {{data["username"]}}</h1>
+    <h1 class="large">{{convert_color_codes_to_html(data['rank_formatted'], "&") | safe}} {{user}}</h1>
     <div class="links">
-    <button onClick="window.open('https://sky.lea.moe/stats/{{data.username}}')" style="width: 8%" class="tiny-button">sky.lea.moe</button>
-    <button onClick="window.open('https://sky.shiiyu.moe/stats/{{data.username}}')" style="width: 8%" class="tiny-button">sky.shiiyu.moe</button>
-    <button onClick="window.open('https://skyblock.matdoes.dev/SushiPython/{{data.username}}')" style="width: 8%" class="tiny-button">matdoes.dev</button>
-    <button onClick="window.open('https://plancke.io/hypixel/player/stats/{{data.username}}')" style="width: 8%" class="tiny-button">plancke.io</button>
+    <button onClick="window.open('https://sky.lea.moe/stats/{{user}}')" style="width: 8%" class="tiny-button">sky.lea.moe</button>
+    <button onClick="window.open('https://sky.shiiyu.moe/stats/{{user}}')" style="width: 8%" class="tiny-button">sky.shiiyu.moe</button>
+    <button onClick="window.open('https://skyblock.matdoes.dev/SushiPython/{{user}}')" style="width: 8%" class="tiny-button">matdoes.dev</button>
+    <button onClick="window.open('https://plancke.io/hypixel/player/stats/{{user}}')" style="width: 8%" class="tiny-button">plancke.io</button>
     </div>
   </div>
   <div class="skinRenderParent">
     <div class="p28 bg-blur top-margin">
-      <h2 class="large">{{data.username}}'s Skin</h2>
+      <h2 class="large">{{user}}'s Skin</h2>
       <div id="skinRender"></div>
     </div>
   </div>
@@ -66,7 +66,7 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
           <span><b>UHC Coins</b> {{data.stats.UHC.coins|nu}}</span><br>
         </div>
         <div>
-          <span><b>Username</b> {{data['username']}}</span><br>
+          <span><b>Username</b> {{user}}</span><br>
           <span><b>Hypixel Level</b> {{data['level']|nu}}</span><br>
           <span><b>Karma</b> {{data['karma']|nu}}</span><br>
           <span><b>Achievement Points</b> {{data['achievement_points']|nu}}</span><br>
@@ -397,5 +397,5 @@ var skinRender = new SkinRender({
         height: skinContainerEl.offsetHeight
     }
 }, skinContainerEl)
-skinRender.render('{{data["username"]}}');
+skinRender.render('{{user}}');
 </script>   
