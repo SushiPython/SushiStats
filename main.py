@@ -136,7 +136,8 @@ async def proxy():
 async def stats(user):
   if request.method == "GET":
     data = await fetch_json(f'https://api.slothpixel.me/api/players/{user}?key={key}')
-    return await render_template('stats.html', data=data, user=user)
+    guild_data = await fetch_json(f'https://api.slothpixel.me/api/guilds/{user}?key={key}')
+    return await render_template('stats.html', data=data, user=user, guild_data=guild_data)
 
 @app.errorhandler(404)
 async def page_not_found(e):

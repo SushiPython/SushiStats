@@ -73,7 +73,6 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
           <span><b>Quests Completed</b> {{data['quests_completed']|nu}}</span><br>
         </div>
         <div>
-          <span><b>Guild Data</b> WIP</span><br>
           <span><b>Friends Count</b> {{friends}}</span><br>
           <span><b>Last Login</b> WIP</span><br>
           <span><b>First Login</b> WIP</span><br>
@@ -82,7 +81,27 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
         </div>
       </div>
     </div>
-    <div class="p70 bg-blur top-margin">
+  <div class="p70 bg-blur top-margin">
+    <h1>Guild</h1>
+    <div class="flex small">
+      <div>
+        <span><b>Name</b> {{guild_data['name']}}</span><br>
+        <span><b>Members</b> {{data['stats']['BedWars']['resources_collected']['gold']|nu}}</span><br>
+        <span><b>GM</b> {{guild_data['description']}}</span><br>
+      </div>
+      <div>
+        <span><b>Level</b> {{data['stats']['BedWars']['coins']|nu}}</span><br>
+        <span><b>Exp</b> {{data['stats']['BedWars']['winstreak']|nu}}</span><br>
+        <span><b>Tag</b> {{data['stats']['BedWars']['wins']|nu}}</span><br>
+      </div>
+      <div>
+        <span><b>Created</b> {{data['stats']['BedWars']['resources_collected']['emerald']|nu}}</span><br>
+        <span><b>Joinable</b> {{data['stats']['BedWars']['level']|nu}}</span><br>
+        <span><b>Public</b> {{data['stats']['BedWars']['k_d']|nu}}</span><br>
+      </div>
+    </div>
+  </div>
+    <div class="panel bg-blur top-margin">
       <h1>Bedwars</h1>
       <div class="flex small">
         <div>
