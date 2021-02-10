@@ -37,7 +37,7 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
     <h1 id="logo">SushiStats</h1>
     <form method="post" action="/proxy">
       <input class="home-text" name="ign" type="text" placeholder="Username" value="{{user}}">
-      <button class="tiny-button" type="submit">Go</buttton>
+      <button class="tiny-button" type="submit">Go</button>
     </form>
     </header><br><br><br><br>
   <div class="panel bg-blur top-margin bottom">
@@ -74,8 +74,8 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
         </div>
         <div>
           <span><b>Friends Count</b> {{friends}}</span><br>
-          <span><b>Last Login</b> WIP</span><br>
-          <span><b>First Login</b> WIP</span><br>
+          <span><b>Last Login</b> {{last_login}}</span><br>
+          <span><b>First Login</b> {{first_login}}</span><br>
           <span><b>Online</b> {{data['online']}}</span><br>
           <span><b>Last Game</b> {{data['last_game']}}</span><br>
         </div>
@@ -86,18 +86,18 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
     <div class="flex small">
       <div>
         <span><b>Name</b> {{guild_data['name']}}</span><br>
-        <span><b>Members</b> {{data['stats']['BedWars']['resources_collected']['gold']|nu}}</span><br>
-        <span><b>GM</b> {{guild_data['description']}}</span><br>
+        <span><b>Members</b> {{guild_members}}</span><br>
+        <span><b>GM</b> {{gm}}</span><br>
       </div>
       <div>
-        <span><b>Level</b> {{data['stats']['BedWars']['coins']|nu}}</span><br>
-        <span><b>Exp</b> {{data['stats']['BedWars']['winstreak']|nu}}</span><br>
-        <span><b>Tag</b> {{data['stats']['BedWars']['wins']|nu}}</span><br>
+        <span><b>Level</b> {{guild_data['level']|nu}}</span><br>
+        <span><b>Exp</b> {{guild_data['exp']|nu}}</span><br>
+        <span><b>Tag</b> [{{guild_data['tag']}}]</span><br>
       </div>
       <div>
-        <span><b>Created</b> {{data['stats']['BedWars']['resources_collected']['emerald']|nu}}</span><br>
-        <span><b>Joinable</b> {{data['stats']['BedWars']['level']|nu}}</span><br>
-        <span><b>Public</b> {{data['stats']['BedWars']['k_d']|nu}}</span><br>
+        <span><b>Created</b> {{created}}</span><br>
+        <span><b>Joinable</b> {{guild_data['joinable']}}</span><br>
+        <span><b>Public</b> {{guild_data['public']}}</span><br>
       </div>
     </div>
   </div>
@@ -275,7 +275,7 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
   color: white;
   padding: 10px;
   width: 28%;
-  height: 570px;
+  height: 480px;
 	background-color: rgba(5,5,5,.2);
 	display: block;
   float: right;
@@ -417,4 +417,4 @@ var skinRender = new SkinRender({
     }
 }, skinContainerEl)
 skinRender.render('{{user}}');
-</script>   
+</script>
