@@ -3,21 +3,20 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>SushiStats - Elegant Hypixel Stats [SlothPixel Err]</title>
+    <title>SushiStats - Elegant Hypixel Stats</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
     <meta property="og:type" content="website">
     <meta property="og:title" content="SushiStats - Elegant Hypixel Stats">
     <meta property="og:image" content="https://cdn.sushipython.us/content/images/logos/logo.jpg">
-    <meta property="og:description" content="Get stats for hypixel players, displayed in an elegant and easy to read format!"
+    <meta property="og:description" content="Get stats for hypixel players, displayed in an elegant and easy to read format!">
   </head>
   <body>
     <div class="panel bg-blur">
-      <span class="large">Hello, you are currently seeing this error because<br>the Slothpixel API is down.</span><br>
-      <span class="large">Sorry for the inconvenience. Please try again in a few hours, hopefully when the team gets their site fixed.</span>
+      <span class="large">Something went wrong! This player is not in a guild!</span><br>
     </div>
     <div class="panel top-margin bg-blur top-panel">
       <h1>Go Back</h1>
-      <a href="/" class="home-submit">Return Home</a>
+      <a href="/stats/{{user}}" class="home-submit">Go Back</a>
     </div>
   </body>
 </html>
@@ -48,7 +47,7 @@
   margin-bottom: 10px;
 }
 .home-body {
-  background-image: url("https://cdn.sushipython.us/content/images/sushistats/ezgif-7-3d740f66c46a.webp");
+  background-image: url("https://cdn.sushipython.us/content/images/sushistats/main-noblur.webp");
   font-family: 'Lato', sans-serif;
   background-size: cover;
 }
@@ -115,7 +114,7 @@
 }
 
 .bg-blur {
-  background: url("https://cdn.sushipython.us/content/images/sushistats/ezgif-6-bc0545e288f7.webp") no-repeat top center fixed;
+  background: url("https://cdn.sushipython.us/content/images/sushistats/main-blur.webp") no-repeat top center fixed;
   background-size: cover;
 }
 
