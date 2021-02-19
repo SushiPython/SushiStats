@@ -123,9 +123,17 @@ async def morestats(user):
     friend_data = await fetch_json(f'https://api.slothpixel.me/api/players/{user}/friends?key={key}')
     guild_data = await fetch_json(f'https://api.slothpixel.me/api/guilds/{user}?key={key}')
     guild_members = 0
-    print(guild_data['guild'])
     if guild_data['guild'] == None:
-      return await render_template('noguild.html', user=user)
+      first_login = datetime.date.fromtimestamp(int(str(data['first_login'])[:-3]))
+      last_login = data['last_login']
+      if not last_login:
+        last_login = 'Private'
+      else:
+        last_login = datetime.date.fromtimestamp(int(str(data['last_login'])[:-3]))
+      friends = 0
+      for b in friend_data:
+        friends += 1
+      return await render_template('noguild.html', data=data, user=user, friends=friends, first_login=first_login, last_login=last_login)
     else:
       for b in guild_data["members"]:
           guild_members += 1
