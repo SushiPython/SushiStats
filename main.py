@@ -6,7 +6,6 @@ import random
 import datetime
 import re
 import motor.motor_asyncio
-import asyncio
 import requests
 import aiohttp
 
@@ -15,14 +14,7 @@ app = Quart(__name__, static_folder="static")
 @app.route('/robots.txt')
 async def static_from_root():
     return await send_from_directory(app.static_folder, request.path[1:])
-#session = None
-'''
-async def get_client_session():
-  global session
-  if session is None:
-    session = await aiohttp.ClientSession()
-  return session
-'''
+
 
 
 jinja_env = Environment(
@@ -64,7 +56,6 @@ other_style_codes = {
     'l': 'font-weight: bold;'
 }
 
-
 def convert_color_codes_to_html(code, symbol, include_raw=False):
     current_color = None
     current_effects = set()
@@ -100,16 +91,8 @@ async def fetch_json(url):
   async with aiohttp.ClientSession() as session:
     async with session.get(url) as response:
       return await response.json()
-'''
-async def storeUser(user, uuid):
-  if not await c.find_one({"username":user}):
-    print(uuid)
-    await c.insert_one({
-      "username": user,
-      "uuid": uuid
-    })
-  return
-'''
+
+
 app.jinja_env.globals[
     'convert_color_codes_to_html'] = convert_color_codes_to_html
 app.jinja_env.globals['round'] = round
