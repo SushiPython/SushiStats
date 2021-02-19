@@ -1,4 +1,4 @@
-from quart import Quart, render_template, request, redirect
+from quart import Quart, render_template, request, redirect, send_from_directory
 import asyncio
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import os
@@ -6,20 +6,14 @@ import random
 import datetime
 import re
 import motor.motor_asyncio
-import asyncio
+import requests
 import aiohttp
 
-app = Quart(__name__)
+app = Quart(__name__, static_folder="static")
 
-session = None
-'''
-async def get_client_session():
-  global session
-  if session is None:
-    session = await aiohttp.ClientSession()
-  return session
-'''
-
+@app.route('/robots.txt')
+async def static_from_root():
+    return await send_from_directory(app.static_folder, request.path[1:])
 
 jinja_env = Environment(
     loader=FileSystemLoader(searchpath='templates'),
@@ -60,7 +54,6 @@ other_style_codes = {
     'l': 'font-weight: bold;'
 }
 
-
 def convert_color_codes_to_html(code, symbol, include_raw=False):
     current_color = None
     current_effects = set()
@@ -96,22 +89,15 @@ async def fetch_json(url):
   async with aiohttp.ClientSession() as session:
     async with session.get(url) as response:
       return await response.json()
-'''
-async def storeUser(user, uuid):
-  if not await c.find_one({"username":user}):
-    print(uuid)
-    await c.insert_one({
-      "username": user,
-      "uuid": uuid
-    })
-  return
-'''
+
+
 app.jinja_env.globals[
     'convert_color_codes_to_html'] = convert_color_codes_to_html
 app.jinja_env.globals['round'] = round
 app.jinja_env.globals['datetime'] = datetime
 app.jinja_env.globals['int'] = int
 def su(n):
+  print(n)
   return re.sub('&.', '', n)
 app.jinja_env.filters['su'] = su
 app.jinja_env.filters['nu'] = lambda n: '{:,}'.format(n) if n else "0"
@@ -130,33 +116,42 @@ async def proxy():
     if request.method == "GET":
       return redirect('/', 302)
 
-
-@app.route('/stats/<user>', methods=["GET", "POST"])
-async def stats(user):
+@app.route('/morestats/<user>', methods=["GET", "POST"])
+async def morestats(user):
   if request.method == "GET":
     data = await fetch_json(f'https://api.slothpixel.me/api/players/{user}?key={key}')
     friend_data = await fetch_json(f'https://api.slothpixel.me/api/players/{user}/friends?key={key}')
     guild_data = await fetch_json(f'https://api.slothpixel.me/api/guilds/{user}?key={key}')
     guild_members = 0
-    for b in guild_data["members"]:
-        guild_members += 1
-    created = datetime.date.fromtimestamp(int(str(guild_data['created'])[:-3]))
-    first_login = datetime.date.fromtimestamp(int(str(data['first_login'])[:-3]))
-    last_login = data['last_login']
-    if not last_login:
-        last_login = 'Private'
+    print(guild_data['guild'])
+    if guild_data['guild'] == None:
+      return await render_template('noguild.html', user=user)
     else:
-        last_login = datetime.date.fromtimestamp(int(str(data['last_login'])[:-3]))
-    d = []
-    for members in guild_data['members']:
-      if members['rank'] == 'Guild Master':
-        d.append(members['uuid'])
-    gm = await fetch_json("https://api.ashcon.app/mojang/v2/user/" + str(d[0]))
-    gm = gm["username"]
-    friends = 0
-    for b in friend_data:
-        friends += 1
-    return await render_template('stats.html', data=data, user=user, guild_data=guild_data, guild_members=guild_members, created=created, gm=gm, friends=friends, first_login=first_login, last_login=last_login)
+      for b in guild_data["members"]:
+          guild_members += 1
+      created = datetime.date.fromtimestamp(int(str(guild_data['created'])[:-3]))
+      first_login = datetime.date.fromtimestamp(int(str(data['first_login'])[:-3]))
+      last_login = data['last_login']
+      if not last_login:
+          last_login = 'Private'
+      else:
+          last_login = datetime.date.fromtimestamp(int(str(data['last_login'])[:-3]))
+      d = []
+      for members in guild_data['members']:
+        if members['rank'] == 'Guild Master':
+          d.append(members['uuid'])
+      gm = await fetch_json("https://api.ashcon.app/mojang/v2/user/" + str(d[0]))
+      gm = gm["username"]
+      friends = 0
+      for b in friend_data:
+          friends += 1
+      return await render_template('stats2.html', data=data, user=user, guild_data=guild_data, guild_members=guild_members, created=created, gm=gm, friends=friends, first_login=first_login, last_login=last_login)
+
+@app.route('/stats/<user>', methods=["GET", "POST"])
+async def stats(user):
+  if request.method == "GET":
+    data = requests.get(f'https://api.slothpixel.me/api/players/{user}?key={key}').json()
+    return await render_template('stats.html', data=data, user=user)
 
 @app.errorhandler(404)
 async def page_not_found(e):
