@@ -123,27 +123,36 @@ async def stats(user):
     friend_data = await fetch_json(f'https://api.slothpixel.me/api/players/{user}/friends?key={key}')
     guild_data = await fetch_json(f'https://api.slothpixel.me/api/guilds/{user}?key={key}')
     guild_members = 0
-    if guild_data['name'] == None:
-      return await render_template('noguild.html', user=user)
+    first_login = datetime.date.fromtimestamp(int(str(data['first_login'])[:-3]))
+    last_login = data['last_login']
+    friends = 0
+    for b in friend_data:
+        friends += 1
+    if not last_login:
+        last_login = 'Private'
     else:
+        last_login = datetime.date.fromtimestamp(int(str(data['last_login'])[:-3]))
+    if "guild" in guild_data:
+      guild_data = {
+        "tag": "None",
+        "level": 0,
+        "exp": 0,
+        "guild_members": 0,
+        "name": "Not in Guild",
+        "joinable": "False",
+        "public": "False"
+      }
+      return await render_template('stats.html', data=data, user=user, guild_data=guild_data, guild_members=guild_members, created="N/A", gm="N/A", friends=friends, first_login=first_login, last_login=last_login)
+    else:
+      created = datetime.date.fromtimestamp(int(str(guild_data['created'])[:-3]))
       for b in guild_data["members"]:
           guild_members += 1
-      created = datetime.date.fromtimestamp(int(str(guild_data['created'])[:-3]))
-      first_login = datetime.date.fromtimestamp(int(str(data['first_login'])[:-3]))
-      last_login = data['last_login']
-      if not last_login:
-          last_login = 'Private'
-      else:
-          last_login = datetime.date.fromtimestamp(int(str(data['last_login'])[:-3]))
       d = []
       for members in guild_data['members']:
         if members['rank'] == 'Guild Master':
           d.append(members['uuid'])
       gm = await fetch_json("https://api.ashcon.app/mojang/v2/user/" + str(d[0]))
       gm = gm["username"]
-      friends = 0
-      for b in friend_data:
-          friends += 1
       return await render_template('stats.html', data=data, user=user, guild_data=guild_data, guild_members=guild_members, created=created, gm=gm, friends=friends, first_login=first_login, last_login=last_login)
 
 
