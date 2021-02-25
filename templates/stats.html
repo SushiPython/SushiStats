@@ -37,16 +37,15 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
     <h1 id="logo">SushiStats</h1>
     <form method="post" action="/proxy">
       <input class="home-text" name="ign" type="text" placeholder="Username" value="{{user}}">
-      <button class="tiny-button" type="submit">Go</buttton>
+      <button class="tiny-button" type="submit">Go</button>
     </form>
     </header><br><br><br><br>
   <div class="panel bg-blur top-margin bottom">
     <h1 class="large">{{convert_color_codes_to_html(data['rank_formatted'], "&") | safe}} {{user}}</h1>
-    <h3 class="notop"><a href="https://ss.sushipython.us/morestats/{{user}}">Request More Data</a></h3>
     <div class="links">
     <button onClick="window.open('https://sky.lea.moe/stats/{{user}}')" style="width: 8%" class="tiny-button">sky.lea.moe</button>
     <button onClick="window.open('https://sky.shiiyu.moe/stats/{{user}}')" style="width: 8%" class="tiny-button">sky.shiiyu.moe</button>
-    <button onClick="window.open('https://skyblock.matdoes.dev/SushiPython/{{user}}')" style="width: 8%" class="tiny-button">matdoes.dev</button>
+    <button onClick="window.open('https://skyblock.matdoes.dev/profiles/{{user}}')" style="width: 8%" class="tiny-button">matdoes.dev</button>
     <button onClick="window.open('https://plancke.io/hypixel/player/stats/{{user}}')" style="width: 8%" class="tiny-button">plancke.io</button>
     </div>
   </div>
@@ -74,16 +73,35 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
           <span><b>Quests Completed</b> {{data['quests_completed']|nu}}</span><br>
         </div>
         <div>
-          <span><b>Guild Data</b> WIP</span><br>
           <span><b>Friends Count</b> {{friends}}</span><br>
-          <span><b>Last Login</b> WIP</span><br>
-          <span><b>First Login</b> WIP</span><br>
+          <span><b>Last Login</b> {{last_login}}</span><br>
+          <span><b>First Login</b> {{first_login}}</span><br>
           <span><b>Online</b> {{data['online']}}</span><br>
           <span><b>Last Game</b> {{data['last_game']}}</span><br>
         </div>
       </div>
     </div>
-    <div class="p70 bg-blur top-margin">
+  <div class="p70 bg-blur top-margin">
+    <h1>Guild</h1>
+    <div class="flex small">
+      <div>
+        <span><b>Name</b> {{guild_data['name']}}</span><br>
+        <span><b>Members</b> {{guild_members}}</span><br>
+        <span><b>GM</b> {{gm}}</span><br>
+      </div>
+      <div>
+        <span><b>Level</b> {{guild_data['level']|nu}}</span><br>
+        <span><b>Exp</b> {{guild_data['exp']|nu}}</span><br>
+        <span><b>Tag</b> [{{convert_color_codes_to_html(guild_data['tag'], '&') | safe}}]</span><br>
+      </div>
+      <div>
+        <span><b>Created</b> {{created}}</span><br>
+        <span><b>Joinable</b> {{guild_data['joinable']}}</span><br>
+        <span><b>Public</b> {{guild_data['public']}}</span><br>
+      </div>
+    </div>
+  </div>
+    <div class="panel bg-blur top-margin">
       <h1>Bedwars</h1>
       <div class="flex small">
         <div>
@@ -185,10 +203,6 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
   </body>
 </html>
 <style>
-.notop {
-  margin-top: .1em;
-  text-decoration: underline;
-}
 @media (max-width: 1590px) {
   .links {
     display: none;
@@ -261,7 +275,7 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
   color: white;
   padding: 10px;
   width: 28%;
-  height: 570px;
+  height: 480px;
 	background-color: rgba(5,5,5,.2);
 	display: block;
   float: right;
@@ -403,4 +417,4 @@ var skinRender = new SkinRender({
     }
 }, skinContainerEl)
 skinRender.render('{{user}}');
-</script>   
+</script>
