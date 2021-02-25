@@ -45,7 +45,7 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
     <div class="links">
     <button onClick="window.open('https://sky.lea.moe/stats/{{user}}')" style="width: 8%" class="tiny-button">sky.lea.moe</button>
     <button onClick="window.open('https://sky.shiiyu.moe/stats/{{user}}')" style="width: 8%" class="tiny-button">sky.shiiyu.moe</button>
-    <button onClick="window.open('https://skyblock.matdoes.dev/SushiPython/{{user}}')" style="width: 8%" class="tiny-button">matdoes.dev</button>
+    <button onClick="window.open('https://skyblock.matdoes.dev/profiles/{{user}}')" style="width: 8%" class="tiny-button">matdoes.dev</button>
     <button onClick="window.open('https://plancke.io/hypixel/player/stats/{{user}}')" style="width: 8%" class="tiny-button">plancke.io</button>
     </div>
   </div>
@@ -92,7 +92,7 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
       <div>
         <span><b>Level</b> {{guild_data['level']|nu}}</span><br>
         <span><b>Exp</b> {{guild_data['exp']|nu}}</span><br>
-        <span><b>Tag</b> [{{guild_data['tag']}}]</span><br>
+        <span><b>Tag</b> [{{convert_color_codes_to_html(guild_data['tag'], '&') | safe}}]</span><br>
       </div>
       <div>
         <span><b>Created</b> {{created}}</span><br>
