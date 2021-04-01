@@ -34,17 +34,21 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
 
 <body>
   <header class="panel bg-blur locked">
-    <h1 id="logo">SushiStats</h1>
+    <h1 id="logo"><a href="/">SushiStats</a></h1>
     <form method="post" action="/proxy">
       <input class="home-text" name="ign" type="text" placeholder="Username" value="{{user}}">
       <button class="tiny-button" type="submit">Go</button>
     </form>
     </header><br><br><br><br>
+  <div id="modal" class="modal">
+    <iframe height=600 width=800 src="/friends/{{user}}"></iframe>
+    <span class="close">&times;</span>
+  </div>
   <div class="panel bg-blur top-margin bottom">
     <h1 class="large">{{convert_color_codes_to_html(data['rank_formatted'], "&") | safe}} {{user}}</h1>
     <div class="links">
     <button onClick="window.open('https://sky.lea.moe/stats/{{user}}')" style="width: 8%" class="tiny-button">sky.lea.moe</button>
-    <button onClick="window.open('https://sky.shiiyu.moe/stats/{{user}}')" style="width: 8%" class="tiny-button">sky.shiiyu.moe</button>
+    <button onClick="window.open('https://sky.shiiyu.moe/stats/{{user}}')" style="width: 8%" class="tiny-button">shiiyu.moe</button>
     <button onClick="window.open('https://skyblock.matdoes.dev/profiles/{{user}}')" style="width: 8%" class="tiny-button">matdoes.dev</button>
     <button onClick="window.open('https://plancke.io/hypixel/player/stats/{{user}}')" style="width: 8%" class="tiny-button">plancke.io</button>
     </div>
@@ -73,7 +77,7 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
           <span><b>Quests Completed</b> {{data['quests_completed']|nu}}</span><br>
         </div>
         <div>
-          <span><b>Friends Count</b> {{friends}}</span><br>
+          <span style="text-decoration:underline;cursor:pointer;" id="friendsButton"><b>Friends Count</b> {{friends}}</span><br>
           <span><b>Last Login</b> {{last_login}}</span><br>
           <span><b>First Login</b> {{first_login}}</span><br>
           <span><b>Online</b> {{data['online']}}</span><br>
@@ -92,7 +96,7 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
       <div>
         <span><b>Level</b> {{guild_data['level']|nu}}</span><br>
         <span><b>Exp</b> {{guild_data['exp']|nu}}</span><br>
-        <span><b>Tag</b> [{{convert_color_codes_to_html(guild_data['tag'], '&') | safe}}]</span><br>
+        <span><b>Tag</b> [{{convert_color_codes_to_html(tag, '&') | safe}}]</span><br>
       </div>
       <div>
         <span><b>Created</b> {{created}}</span><br>
@@ -133,7 +137,7 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
       <div>
         <span><b>Souls Gathered</b> {{data.stats.SkyWars.souls_gathered|nu}}</span><br>
         <span><b>Blocks Placed</b> {{data.stats.SkyWars.blocks_placed|nu}}</span><br>
-        <span><b>Eggs Thrown</b> {{data.stats.SkyWars.egg_thrown|nu}}</span><br>
+        <span><b>Eggs Thrown</b> {{data.stats.SkyWars.eggs_thrown|nu}}</span><br>
         <span><b>EPearls Thrown</b> {{data.stats.SkyWars.enderpearls_thrown|nu}}</span><br>
       </div>
       <div>
@@ -203,7 +207,7 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
   </body>
 </html>
 <style>
-@media (max-width: 1590px) {
+@media (max-width: 1000px) {
   .links {
     display: none;
   }
@@ -246,7 +250,7 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
 }
 
 .stats-body {
-  background-image: url("https://sushistats-html.sushipython.repl.co/pic.jpg");
+  background-image: url("https://cdn.sushipython.us/content/images/sushistats/skywars.jpg");
   font-family: 'Lato', sans-serif;
   background-size: cover;
   background-repeat: no-repeat;
@@ -271,6 +275,7 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
   box-sizing: border-box;
   box-shadow:
   0 0px 34px rgba(0, 0, 0, 0.6)
+  
 ;
   color: white;
   padding: 10px;
@@ -282,7 +287,12 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
   margin-right: 20px;
 }
 
+iframe {
+  border-radius: 7px;
+}
+
 #skinRender {
+  margin-top: 0;
   height: calc(100% - 6em);
 }
 
@@ -300,13 +310,13 @@ Arcade: {{data.stats.Arcade.coins|nu}}">
 }
 
 .bg-blur {
-  background: url("https://sushistats-html.sushipython.repl.co/pic-blur.jpg") no-repeat top center fixed;
+  background: url("https://cdn.sushipython.us/content/images/sushistats/skywars-blur.jpg") no-repeat top center fixed;
   background-size: cover;
 }
 
 .top-margin {
   margin-top: 25px;
-  padding-bottom: 25px
+  padding-bottom: 25px;
 }
 
 .normal-flex {
@@ -400,6 +410,44 @@ a {
   text-align: center;
   color: white;
 }
+// ton of code copy pasted from w3
+ /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  overflow: hidden;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+} 
 </style>
 <script>
 var skinContainerEl = document.getElementById('skinRender')
@@ -417,4 +465,29 @@ var skinRender = new SkinRender({
     }
 }, skinContainerEl)
 skinRender.render('{{user}}');
+// Get the modal
+  var modal = document.getElementById("modal");
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("friendsButton");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks on the button, open the modal
+  btn.onclick = function() {
+    modal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  } 
 </script>

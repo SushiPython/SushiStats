@@ -1,35 +1,58 @@
 <!DOCTYPE html>
-<html class="home-body">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>SushiStats - Elegant Hypixel Stats [{{errorCode}}]</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
+<html class="stats-body" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>{{user}} - Friends Data - SushiStats</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js" integrity="sha256-NGC9JEuTWN4GhTj091wctgjzftr+8WNDmw0H8J5YPYE="
+	 crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/gh/InventivetalentDev/MineRender@1.2.3/dist/skin.min.js"></script>
+  <link rel="shortcut icon" href="https://cdn.sushipython.us/content/images/logos/logo.jpg" type="image/jpg">
     <meta property="og:type" content="website">
     <meta property="og:title" content="SushiStats - Elegant Hypixel Stats">
-    <meta property="og:image" content="https://cdn.sushipython.us/content/images/logos/logo.jpg">
-    <meta property="og:description" content="Get stats for hypixel players, displayed in an elegant and easy to read format!">
-  </head>
-  <body>
-    <div class="panel bg-blur">
-      <span class="large">Something went wrong! Most likely invalid username or ratelimit.</span><br>
-      <span class="large">Sometimes people change their names, and it does not show up on this site.</span><br>
-      <span class="large">If there is a bug, please DM Sushi#5027</span><br>
-    </div>
-    <div class="panel top-margin bg-blur top-panel">
-      <h1>Go Back</h1>
-      <a href="/" class="home-submit">Return Home</a>
+    <meta property="og:description" content="SushiStats - Get stats for hypixel players, displayed in an elegant and easy to read format! 🍣 [Friends Page]"><meta property="og:type" content="website">
+  <meta property="og:image" content="http://cravatar.eu/helmhead/{{user}}/256.png">
+</head>
+<body>
+  <!--  -->
+    <div class="panel bg-blur top-margin">
+      {% for item in f_users %}
+        {{item[item.find('<img'):]|safe}}<br><br>
+      {% endfor %}
     </div>
   </body>
 </html>
 <style>
+* {
+  font-family: 'Lato', sans-serif;
+}
+@media (max-width: 1000px) {
+  .links {
+    display: none;
+  }
+}
+@media (max-width: 1200px) {
+  .skinRenderParent,#logo {
+    display: none;
+  }
+  .p70 {
+    width: 99%!important
+  }
+}
 .locked {
   position: fixed;
 }
-
+#logo {
+  margin: 0;
+  top: 0.45em;
+  position: absolute;
+}
 * {
   text-align: center;
-  text-shadow: 2px 2px 4px #000000;
 }
 
 .l {
@@ -48,23 +71,20 @@
 .bottom {
   margin-bottom: 10px;
 }
-.home-body {
+
+.stats-body {
   background-image: url("https://cdn.sushipython.us/content/images/sushistats/skywars.jpg");
-  font-family: 'Lato', sans-serif;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .panel {
   border-radius: 7px;
   box-sizing: border-box;
   box-shadow:
-    0 0px 10.4px rgba(0, 0, 0, 0.067),
-    0 0px 25px rgba(0, 0, 0, 0.097),
-    0 0px 47.1px rgba(0, 0, 0, 0.12),
-    0 0px 84px rgba(0, 0, 0, 0.143),
-    0 0px 157.1px rgba(0, 0, 0, 0.173),
-    0 0px 376px rgba(0, 0, 0, 0.24)
-  ;
+  0 0px 34px rgba(0, 0, 0, 0.6)
+;
   color: white;
   padding: 10px;
   width: 99%;
@@ -76,17 +96,13 @@
   border-radius: 7px;
   box-sizing: border-box;
   box-shadow:
-    0 0px 10.4px rgba(0, 0, 0, 0.067),
-    0 0px 25px rgba(0, 0, 0, 0.097),
-    0 0px 47.1px rgba(0, 0, 0, 0.12),
-    0 0px 84px rgba(0, 0, 0, 0.143),
-    0 0px 157.1px rgba(0, 0, 0, 0.173),
-    0 0px 376px rgba(0, 0, 0, 0.24)
-  ;
+  0 0px 34px rgba(0, 0, 0, 0.6)
+  
+;
   color: white;
   padding: 10px;
   width: 28%;
-  height: 530px;
+  height: 480px;
 	background-color: rgba(5,5,5,.2);
 	display: block;
   float: right;
@@ -94,6 +110,7 @@
 }
 
 #skinRender {
+  margin-top: 0;
   height: calc(100% - 6em);
 }
 
@@ -101,13 +118,8 @@
   border-radius: 7px;
   box-sizing: border-box;
   box-shadow:
-    0 0px 10.4px rgba(0, 0, 0, 0.067),
-    0 0px 25px rgba(0, 0, 0, 0.097),
-    0 0px 47.1px rgba(0, 0, 0, 0.12),
-    0 0px 84px rgba(0, 0, 0, 0.143),
-    0 0px 157.1px rgba(0, 0, 0, 0.173),
-    0 0px 376px rgba(0, 0, 0, 0.24)
-  ;
+  0 0px 34px rgba(0, 0, 0, 0.6)
+;
   color: white;
   padding: 10px;
   width: 70%;
@@ -121,8 +133,7 @@
 }
 
 .top-margin {
-  margin-top: 25px;
-  padding-bottom: 25px
+  margin-top: 1.5em;
 }
 
 .normal-flex {
@@ -146,7 +157,7 @@
 .home-text {
   background-color: rgba(255, 255, 255, .1);
   color: white;
-  width: 30%;
+  width: 50%;
   height:50px;
   font-size: 18px;
   border-color: rgba(255, 255, 255, .5);
@@ -157,10 +168,11 @@
 }
 
 .tiny-button {
+  text-align: center;
   background-color: rgba(255, 255, 255, .3);
   border: none;
   color: white;
-  width: 5%;
+  width: 20%;
   height:50px;
   font-size: 18px;
   border-color: rgba(255, 255, 255, .5);
@@ -216,3 +228,20 @@ a {
   color: white;
 }
 </style>
+<script>
+var skinContainerEl = document.getElementById('skinRender')
+var skinRender = new SkinRender({
+    autoResize: true,
+    controls: {
+        enabled: true,
+        zoom: false,
+        rotate: true,
+        pan: false
+    },
+    canvas: {
+        width: skinContainerEl.offsetWidth,
+        height: skinContainerEl.offsetHeight
+    }
+}, skinContainerEl)
+skinRender.render('{{user}}');
+</script>

@@ -8,6 +8,9 @@ import re
 import motor.motor_asyncio
 import requests
 import aiohttp
+import requests
+import ast
+import json
 
 app = Quart(__name__, static_folder="static")
 
@@ -112,9 +115,24 @@ async def main():
 async def proxy():
     if request.method == "POST":
         data = await request.form
-        return redirect(f'/stats/{data["ign"]}', 302)
+        return redirect(f'/stats/{data["ign"]}')
     if request.method == "GET":
-      return redirect('/', 302)
+      return redirect('/')
+
+async def getUnix(item, data):
+  if item not in data:
+    return 'Private'
+  if data[item] is None:
+    return 'Private'
+  else:
+    return datetime.date.fromtimestamp(int(str(data[item])[:-3]))
+
+
+@app.route('/hypixel/player/stats/<uuid>')
+async def redir(uuid):
+  gm = await fetch_json("https://api.ashcon.app/mojang/v2/user/" + uuid)
+  username = gm['username']
+  return redirect(f'/stats/{username}', 302)
 
 @app.route('/stats/<user>', methods=["GET", "POST"])
 async def stats(user):
@@ -122,30 +140,32 @@ async def stats(user):
     data = await fetch_json(f'https://api.slothpixel.me/api/players/{user}?key={key}')
     friend_data = await fetch_json(f'https://api.slothpixel.me/api/players/{user}/friends?key={key}')
     guild_data = await fetch_json(f'https://api.slothpixel.me/api/guilds/{user}?key={key}')
-    guild_members = 0
-    if guild_data['name'] == None:
-      return await render_template('noguild.html', user=user)
+    first_login = await getUnix('first_login', data)
+    last_login = await getUnix('last_login', data)
+    created = await getUnix('created', guild_data)
+    friends = len(friend_data)
+    if 'guild' in guild_data:
+      return await render_template('noguild.html', data=data, user=user, friends=friends, first_login=first_login, last_login=last_login)
     else:
-      for b in guild_data["members"]:
-          guild_members += 1
-      created = datetime.date.fromtimestamp(int(str(guild_data['created'])[:-3]))
-      first_login = datetime.date.fromtimestamp(int(str(data['first_login'])[:-3]))
-      last_login = data['last_login']
-      if not last_login:
-          last_login = 'Private'
+      if 'tag' in guild_data:
+        tag = guild_data['tag']
       else:
-          last_login = datetime.date.fromtimestamp(int(str(data['last_login'])[:-3]))
+        tag = 'None'
       d = []
       for members in guild_data['members']:
         if members['rank'] == 'Guild Master':
           d.append(members['uuid'])
       gm = await fetch_json("https://api.ashcon.app/mojang/v2/user/" + str(d[0]))
-      gm = gm["username"]
-      friends = 0
-      for b in friend_data:
-          friends += 1
-      return await render_template('stats.html', data=data, user=user, guild_data=guild_data, guild_members=guild_members, created=created, gm=gm, friends=friends, first_login=first_login, last_login=last_login)
+        
+      return await render_template('stats.html', data=data, user=user, guild_data=guild_data, guild_members=len(guild_data['members']), created=created, gm=gm['username'], friends=friends, first_login=first_login, last_login=last_login, tag=tag)
 
+@app.route('/friends/<user>')
+async def friends(user):
+  id = await fetch_json('https://api.mojang.com/users/profiles/minecraft/'+user)
+  id = id['id']
+  f_users = requests.get('https://plancke.io/hypixel/player/friends/fetch.php?begin=0&uuid='+id).json()
+  d = f_users['list']
+  return await render_template('friends.html', f_users=d, user=user)
 
 @app.errorhandler(404)
 async def page_not_found(e):
