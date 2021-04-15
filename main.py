@@ -14,6 +14,7 @@ import json
 
 app = Quart(__name__, static_folder="static")
 
+
 @app.route('/robots.txt')
 async def static_from_root():
     return await send_from_directory(app.static_folder, request.path[1:])
