@@ -137,6 +137,7 @@ async def redir(uuid):
 @app.route('/stats/<user>', methods=["GET", "POST"])
 async def stats(user):
   if request.method == "GET":
+    print(request.headers.get('Cf-Connecting-Ip'))
     data = await fetch_json(f'https://api.slothpixel.me/api/players/{user}?key={key}')
     friend_data = await fetch_json(f'https://api.slothpixel.me/api/players/{user}/friends?key={key}')
     guild_data = await fetch_json(f'https://api.slothpixel.me/api/guilds/{user}?key={key}')
